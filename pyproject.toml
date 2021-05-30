@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "iot project"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2.3"
+django-jazzmin = "^2.4.7"
+requests = "^2.25.1"
+psycopg2 = "^2.8.6"
+django-environ = "^0.4.5"
+python-decouple = "^3.4"
+django-rest-framework = "^0.1.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
