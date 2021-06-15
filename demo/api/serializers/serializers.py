@@ -3,10 +3,10 @@ from smart_home.models import *
 
 class DevideSerilizer(ModelSerializer):
     class Meta:
-        model = Devide
-        fields = ['status','auto']
+        model = Device
+        fields = '__all__'
 
 class HomeSerializer(ModelSerializer):
     class Meta:
         model = Home
-        fields = ['temperature', 'humid', 'distance_door','distance_private_room']
+        fields = '__all__'

@@ -21,6 +21,6 @@ from rest_framework.views import APIView
 
 
 urlpatterns = [
-    path('index', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/',include('api.urls')),
 ]

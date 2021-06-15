@@ -6,7 +6,7 @@ from django.db.models import base
 from .models import *
 
 class DevideAdminInline(admin.StackedInline):
-    model = Devide
+    model = Device
     verbose_name = 'Devide'
     verbose_name_plural = 'Devides'
 

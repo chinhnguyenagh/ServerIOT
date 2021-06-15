@@ -3,6 +3,7 @@ from typing import no_type_check
 from django.db import models
 from django.db.models.base import Model  
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _ 
 # Create your models
 class Home(models.Model):
     """Model definition for House."""
@@ -35,12 +36,23 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
-class Devide(models.Model):
+class Device(models.Model):
+    class Meta:
+        verbose_name = _('Device')
+        verbose_name_plural = _('Devices')
+
+    status_choice = [
+        ('ON', "ON"),
+        ('OFF','OFF')
+    ]
     name = models.CharField(max_length=50,null=False, blank=False)
     type = models.ForeignKey('smart_home.Type', on_delete=models.CASCADE, null=False,blank=False)
-    status = models.BooleanField(default=False, null=True, blank=True)
-    auto = models.BooleanField(default=True,null=True,blank=True)
-    house = models.ForeignKey('smart_home.Home', on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(_('Status'), choices=status_choice, null=True, blank=True, max_length = 10)
+    auto = models.CharField(_('Auto'),choices=status_choice,null=True,blank=True, max_length = 10)
+    home = models.ForeignKey('smart_home.Home', on_delete=models.CASCADE, null=True, blank=True)
     pin_number = models.IntegerField(unique=True, null=True, blank=True)
     max_value = models.FloatField(null=True, blank=True)
     min_value = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
