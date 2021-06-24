@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from api.serializers import *
 from django.shortcuts import get_object_or_404
 from smart_home.models import *
+from paho.mqtt import client as mqtt_client
+import json
 
 class HomeAPI(ViewSet):
     permission_classes = (IsAuthenticated,)
@@ -29,6 +31,9 @@ class HomeAPI(ViewSet):
         serializer = HomeSerializer(home,data = request.data)
         if serializer.is_valid():
             serializer.save()
+            client = mqtt_client.Client()
+            client.connect(home.host_mqtt,home.port_mqtt)
+            client.publish(home.topic,json.dumps(serializer.data))
             return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
@@ -51,6 +56,9 @@ class DeviceAPI(ViewSet):
         serializer = DevideSerilizer(device,data = request.data)
         if serializer.is_valid():
             serializer.save()
+            client = mqtt_client.Client()
+            client.connect(device.home.host_mqtt, 1883)
+            client.publish(device.home.topic,json.dumps(serializer.data))
             return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
 
     

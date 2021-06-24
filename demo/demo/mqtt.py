@@ -1,29 +1,41 @@
 from paho.mqtt import client as mqtt_client
+import requests
+import psycopg2
+import json
+try:
+    connection = psycopg2.connect(
+        user = 'postgres',
+        password = 'root',
+        host = '127.0.0.1',
+        port = '5432',
+        database = 'smarthome'
+    )
+    cursor  = connection.cursor()
+except(Exception, psycopg2.Error) as error:
+    print("connect errot ", error)
+
 topic = 'home/status'
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to MQTT Broker!")
+        client.subscribe(topic)
     else:
         print("Failed to connect, return code %d\n", rc)
 
 def on_message(client, userdata, msg):
-    pass
+    home = eval(msg.payload.decode())
+    sql_select_query = """update smart_home_home set temperature = %s, humid =  %s, distance_door = %s, distance_private_room = %s where id = %s """
+
+    cursor.execute(sql_select_query, (home['temperature'],home['humid'],home['distance_door'],home['distance_private_room'],home['id']))
+    connection.commit()
 
 
-# for obj in Home.objects.all():
-#     try:
-#         client_obj = mqtt_client.Client()
-#         client_obj.on_connect = on_connect
-#         client_obj.subscribe(obj.topic)
-#         client_obj.on_message = on_message
-#         client_obj.connect(obj.host_mqtt, obj.port_mqtt)
-#         list_client.append(client_obj)
-#     except:
-#         pass
+
+
+
 
 client = mqtt_client.Client()
 client.on_connect = on_connect
-client.subscribe(topic)
 client.on_message = on_message
 client.connect('127.0.0.1',1883)
 
