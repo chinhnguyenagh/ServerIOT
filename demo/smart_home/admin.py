@@ -13,6 +13,8 @@ class DevideAdminInline(admin.StackedInline):
 class HomeAdmin(admin.ModelAdmin):
     list_display = ['name', 'temperature', 'humid','distance_door', 'distance_private_room']
     inlines = [DevideAdminInline]
+
 admin.site.register(Home,HomeAdmin)
 admin.site.register(Type)
+admin.site.register(Esp)
 

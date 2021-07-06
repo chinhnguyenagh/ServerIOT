@@ -1,4 +1,4 @@
-from __future__ import absolute_import, unicode_literals
-from .mqtt import client
+# from __future__ import absolute_import, unicode_literals
+# from .mqtt import client
 
-client.loop_start()
+# client.loop_start()
