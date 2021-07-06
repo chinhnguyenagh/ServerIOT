@@ -19,10 +19,10 @@ class Home(models.Model):
         verbose_name = 'Home'
         verbose_name_plural = 'Homes'
     name = models.CharField(null = True, blank =False, max_length=50, unique=True)
-    temperature = models.IntegerField(default = 25, null = True, blank=True)
-    humid = models.IntegerField(null=True, blank=True)
-    distance_door = models.IntegerField(null=True,blank=True)
-    distance_private_room = models.IntegerField(null=True, blank=True)
+    temperature = models.FloatField(default = 25, null = True, blank=True)
+    humid = models.FloatField(null=True, blank=True)
+    distance_door = models.FloatField(null=True,blank=True)
+    distance_private_room = models.FloatField(null=True, blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
