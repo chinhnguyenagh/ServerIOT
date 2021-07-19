@@ -140,3 +140,4 @@ GRAPH_MODELS = {
     "all_applications": True,
     "group_models": True,
 }
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'

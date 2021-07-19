@@ -12,18 +12,15 @@ schema_view = get_schema_view(
         description="SmartHome API"
     ),
     public=True,
-    permission_classes=[permissions.AllowAny],
+    permission_classes=[permissions.AllowAny,],
     authentication_classes=[]
 )
 
-router1 = DefaultRouter()
-router2 = DefaultRouter()
-router1.register('home',HomeAPI,basename='homeupdate')
-router2.register('device',DeviceAPI, basename='deviceupdate')
+router = DefaultRouter()
+router.register('home',HomeAPI,basename='homeupdate')
+router.register('esp',EspAPI,basename='esp')
+router.register('device',DeviceAPI, basename='deviceupdate')
 urlpatterns = [
     path('',schema_view.with_ui('swagger', cache_timeout=0), name = 'schema-swagger-ui'),
-    path('',include(router1.urls)),
-    # path('home/<int:pk>/',include(router1.urls)),
-    path('', include(router2.urls)),
-    # path('devide/<int:pk>/',include(router2.urls))
+    path('',include(router.urls)),
 ]

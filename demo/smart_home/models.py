@@ -49,6 +49,9 @@ class Esp(models.Model):
     port_mqtt = models.CharField(null=True, blank=True, max_length=10)
     topic = models.CharField(null=True, blank=True,max_length=100)
 
+    def __str__(self):
+        return '{}'.format(self.pk)
+
 class Device(models.Model):
     class Meta:
         verbose_name = _('Device')
@@ -63,7 +66,7 @@ class Device(models.Model):
     status = models.CharField(_('Status'), choices=status_choice, null=True, blank=True, max_length = 10)
     auto = models.CharField(_('Auto'),choices=status_choice,null=True,blank=True, max_length = 10)
     home = models.ForeignKey('smart_home.Home', on_delete=models.CASCADE, null=True, blank=True)
-    esp = models.ForeignKey(Esp, on_delete=models.CASCADE, null=True, blank=True)
+    esp = models.ForeignKey(Esp, on_delete=models.CASCADE, null=True, blank=True, related_name = 'list_device')
     pin_number = models.IntegerField(unique=True, null=True, blank=True)
     max_value = models.FloatField(null=True, blank=True)
     min_value = models.FloatField(null=True, blank=True)
