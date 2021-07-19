@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin.decorators import register
 from django.db.models import base
-from demo.admin import admin_site
 from django.contrib.auth.models import Group
 
 # Register your models here.
@@ -21,9 +20,6 @@ class HomeAdmin(admin.ModelAdmin):
     list_display = ['name', 'temperature', 'humid','distance_door', 'distance_private_room']
     inlines = [DevideAdminInline, ESPInline]
 
-admin_site.register(Home,HomeAdmin)
-admin_site.register(Type)
-admin_site.register(Esp)
-admin_site.register(User)
-
-admin_site.register(Group)
+admin.site.register(Home,HomeAdmin)
+admin.site.register(Type)
+admin.site.register(Esp)
