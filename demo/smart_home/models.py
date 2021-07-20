@@ -43,7 +43,7 @@ class Esp(models.Model):
         verbose_name = _("ESP")
         verbose_name_plural = _('ESP')
     
-    home = models.ForeignKey(Home, on_delete=models.CASCADE, null=True, blank=True)
+    home = models.ForeignKey(Home, on_delete=models.CASCADE, null=True, blank=True, related_name='list_esp')
     name = models.CharField(max_length=100)
     host_mqtt = models.CharField(null=True, blank=True,max_length=100)
     port_mqtt = models.CharField(null=True, blank=True, max_length=10)

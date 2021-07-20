@@ -13,6 +13,8 @@ from paho.mqtt import client as mqtt_client
 import json
 from drf_yasg.utils import swagger_auto_schema
 from smart_home.tasks import *
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 
 class HomeAPI(ViewSet):
     permission_classes = (IsAuthenticated,)
@@ -100,4 +102,26 @@ class EspAPI(ModelViewSet):
     #     except Esp.DoesNotExist:
     #         return Response(status=status.HTTP_404_NOT_FOUND)
 
+class LoginAPI(APIView):
+    permission_classes = ()
+    authentication_classes = []
+
+    @swagger_auto_schema(request_body=LoginSerializer)
+    def post(self, request):
+        serializer = LoginSerializer(data = request.data)
+        if serializer.is_valid():
+            username = serializer.data['username']
+            password = request.data['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+                try:
+                    token = Token.objects.get(user = user)
+                except Token.DoesNotExist:
+                    token = Token.objects.create(user = user)
+                return Response({'token':token.key}, status=status.HTTP_202_ACCEPTED)
+            else:
+                return Response({'message':'username or password not valid'}, status = status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                   
     

@@ -16,11 +16,16 @@ class ESPInline(admin.StackedInline):
     verbose_name = "Esp"
     verbose_name_plural = "Esps"
 
+
 class HomeAdmin(admin.ModelAdmin):
     list_display = ['name', 'temperature', 'humid','distance_door', 'distance_private_room']
     inlines = [ESPInline]
 
+class EspAdmin(admin.ModelAdmin):
+    inlines = [DevideAdminInline]
+    list_display = ['name', 'host_mqtt','port_mqtt', 'topic']
+
 admin.site.register(Home,HomeAdmin)
 admin.site.register(Type)
-admin.site.register(Esp)
+admin.site.register(Esp,EspAdmin)
 admin.site.register(Device)

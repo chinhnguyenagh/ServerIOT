@@ -23,4 +23,5 @@ router.register('device',DeviceAPI, basename='deviceupdate')
 urlpatterns = [
     path('',schema_view.with_ui('swagger', cache_timeout=0), name = 'schema-swagger-ui'),
     path('',include(router.urls)),
+    path('login/', views.LoginAPI.as_view(), name = 'login')
 ]
