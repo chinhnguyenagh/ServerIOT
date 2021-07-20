@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
-
-
+admin.site.site_header = 'Smart Home'
 urlpatterns = [
     path('index/', admin.site.urls),
     path('api/',include('api.urls')),

@@ -65,7 +65,6 @@ class Device(models.Model):
     type = models.ForeignKey('smart_home.Type', on_delete=models.CASCADE, null=False,blank=False)
     status = models.CharField(_('Status'), choices=status_choice, null=True, blank=True, max_length = 10)
     auto = models.CharField(_('Auto'),choices=status_choice,null=True,blank=True, max_length = 10)
-    home = models.ForeignKey('smart_home.Home', on_delete=models.CASCADE, null=True, blank=True)
     esp = models.ForeignKey(Esp, on_delete=models.CASCADE, null=True, blank=True, related_name = 'list_device')
     pin_number = models.IntegerField(unique=True, null=True, blank=True)
     max_value = models.FloatField(null=True, blank=True)

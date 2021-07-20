@@ -6,7 +6,7 @@ class DevideSerilizer(ModelSerializer):
      
     class Meta:
         model = Device
-        exclude = ['home', 'esp']
+        exclude = ['esp']
 class HomeSerializer(ModelSerializer):
     class Meta:
         model = Home
